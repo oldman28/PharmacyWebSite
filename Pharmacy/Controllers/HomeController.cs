@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pharmacy.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,23 +9,14 @@ namespace Pharmacy.Controllers
 {
     public class HomeController : Controller
     {
+        PharContext db = new PharContext();
         public ActionResult Index()
         {
+            IEnumerable<Medication> meds = db.Medications;
+            ViewBag.Medications = meds;
             return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+       
     }
 }

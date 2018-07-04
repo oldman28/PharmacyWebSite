@@ -29,8 +29,9 @@ namespace Pharmacy.Controllers
         public ActionResult Medication(int id)
         {
             var med = db.PharmacyMeds.Where(p => p.idPhar == id).ToList();
-            var her = db.Medications.Where(p => p.Id == id).ToList();
-            return View(her);
+            
+            //  var her = db.Medications.Where(p => p.Id == ).ToList();
+            return View(med);
         }
 
     }

@@ -1,4 +1,4 @@
-﻿@model  List<Pharmacy.Models.Medication>
+﻿@model  List<Pharmacy.Models.PharmacyMed>
 @{
     Layout = null;
 }
@@ -25,11 +25,11 @@
             @foreach (var b in Model)
             {
                 <tr>
-                    <td><p>@b.Name</p></td>
-                    <td><p>@b.Weight</p></td>
-                    <td><p>@b.Quantity</p></td>
-                    <td><p>@b.Description</p></td>
-                    <td><p>@b.Price</p></td>
+                    <td><p>@b.Medication.Name</p></td>
+                    <td><p>@b.Medication.Weight</p></td>
+                    <td><p>@b.Medication.Quantity</p></td>
+                    <td><p>@b.Medication.Description</p></td>
+                    <td><p>@b.Medication.Price</p></td>
                 </tr>
             }
         </table>

@@ -10,5 +10,8 @@ namespace Pharmacy.Models
     {
         public DbSet<Medication> Meds { get; set; }
         public DbSet<Order> Ords { get; set; }
+        public DbSet<City> Ctys { get; set; }
+        public DbSet<Pharmacy> Pharms  { get; set; }
+        public DbSet<PharmacyMed> PharmMeds { get; set; }
     }
 }

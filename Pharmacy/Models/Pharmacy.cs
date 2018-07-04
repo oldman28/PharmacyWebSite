@@ -12,21 +12,20 @@ namespace Pharmacy.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Medication
+    public partial class Pharmacy
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Medication()
+        public Pharmacy()
         {
             this.PharmacyMeds = new HashSet<PharmacyMed>();
         }
     
         public int Id { get; set; }
+        public int idCities { get; set; }
         public string Name { get; set; }
-        public Nullable<int> Weight { get; set; }
-        public Nullable<int> Quantity { get; set; }
-        public string Description { get; set; }
-        public Nullable<decimal> Price { get; set; }
+        public string Adress { get; set; }
     
+        public virtual City City { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PharmacyMed> PharmacyMeds { get; set; }
     }

@@ -154,6 +154,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\City.cs">
+      <DependentUpon>PharmacyDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Medication.cs">
       <DependentUpon>PharmacyDB.tt</DependentUpon>
     </Compile>
@@ -161,6 +164,9 @@
       <DependentUpon>PharmacyDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PharContext.cs" />
+    <Compile Include="Models\Pharmacy.cs">
+      <DependentUpon>PharmacyDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PharmacyDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -175,6 +181,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PharmacyDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PharmacyMed.cs">
+      <DependentUpon>PharmacyDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -234,6 +243,8 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Pick.cshtml" />
+    <Content Include="Views\Home\Medication.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Phar\" />

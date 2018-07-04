@@ -27,5 +27,8 @@ namespace Pharmacy.Models
     
         public virtual DbSet<Medication> Medications { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<Pharmacy> Pharmacies { get; set; }
+        public virtual DbSet<PharmacyMed> PharmacyMeds { get; set; }
     }
 }

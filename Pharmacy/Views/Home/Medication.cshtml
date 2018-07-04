@@ -1,0 +1,38 @@
+﻿@model  List<Pharmacy.Models.Medication>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>АПТЕКИ</title>
+</head>
+<body>
+    <div>
+        <h3>Аптеки: </h3>
+        <table>
+            <tr>
+                <td><p>Название </p></td>
+                <td><p>Вес </p></td>
+                <td><p>Количество </p></td>
+                <td><p>Описание </p></td>
+                <td><p>Цена </p></td>
+                <td></td>
+            </tr>
+            @foreach (var b in Model)
+            {
+                <tr>
+                    <td><p>@b.Name</p></td>
+                    <td><p>@b.Weight</p></td>
+                    <td><p>@b.Quantity</p></td>
+                    <td><p>@b.Description</p></td>
+                    <td><p>@b.Price</p></td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

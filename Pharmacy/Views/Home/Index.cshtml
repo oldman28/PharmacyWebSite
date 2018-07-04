@@ -14,20 +14,13 @@
         <h3>Распродажа препартов</h3>
         <table>
             <tr>
-                <td><p>Название препарата</p></td>
-                <td><p>Количество</p></td>
-                <td><p>Цена</p></td>
+                <td><p>Город</p></td>
                 <td></td>
             </tr>
-            @foreach (var b in ViewBag.Medications)
+            @foreach (var b in ViewBag.Citys)
             {
                 <tr>
-                    <td><p>@b.Name</p></td>
-                    <td><p>@b.Weight</p></td>
-                    <td><p>@b.Quantity</p></td>
-                    <td><p>@b.Description</p></td>
-                    <td><p>@b.Price</p></td>
-                    <td><p><a href="/Home/Buy/@b.Id">Купить</a></p></td>
+                    <td><a href="/Home/Pick/@b.Id"><p>@b.City1</p></a></td>
                 </tr>
             }
         </table>

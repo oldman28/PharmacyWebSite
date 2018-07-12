@@ -9,33 +9,47 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>АПТЕКИ</title>
+    <script type="text/javascript" src="~/Scripts/jquery-latest.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.tablesorter.js"></script> 
 </head>
 <body>
     <div>
         <h3>Аптеки: </h3>
-        <table>
-            <tr>
-                <td><p>Название </p></td>
-                <td><p>Вес </p></td>
-                <td><p>Количество </p></td>
-                <td><p>Описание </p></td>
-                <td><p>Цена </p></td>
-                <td></td>
-            </tr>
-            @foreach (var b in Model)
-            {
+        <table id="myTable">
+            <thead>
                 <tr>
-                    <td><p>@b.Name</p></td>
-                    <td><p>@b.Weight</p></td>
-                    <td><p>@b.Quantity</p></td>
-                    <td><p>@b.Description</p></td>
-                    <td><p>@b.Price</p></td>
+                    <th><p>Название </p></th>
+                    <th><p>Вес </p></th>
+                    <th><p>Количество </p></th>
+                    <th><p>Описание </p></th>
+                    <th><p>Цена </p></th>
                 </tr>
-               
-            }
-          
+            </thead>
+            <tbody>
+                @foreach (var b in Model)
+                    {
+                     <tr>
+                        <td><p>@b.Name</p></td>
+                        <td><p>@b.Weight</p></td>
+                        <td><p>@b.Quantity</p></td>
+                        <td><p>@b.Description</p></td>
+                        <td><p>@b.Price</p></td>
+                    </tr>
+
+                    }
+            </tbody>
+
         </table>
+             
+        
        
     </div>
+    <script>
+        $(document).ready(function () {
+            $("#myTable").tablesorter();
+        }
+        ); 
+    </script>
 </body>
+
 </html>

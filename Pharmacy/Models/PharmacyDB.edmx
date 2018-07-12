@@ -12,27 +12,6 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="City" Type="nvarchar" MaxLength="40" />
         </EntityType>
-        <EntityType Name="Medications">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Weight" Type="int" />
-          <Property Name="Quantity" Type="int" />
-          <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
-        </EntityType>
-        <EntityType Name="Orders">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NameUser" Type="nvarchar" MaxLength="50" />
-          <Property Name="Phone" Type="nvarchar" MaxLength="30" />
-          <Property Name="Status" Type="nvarchar" MaxLength="30" />
-          <Property Name="MedicationID" Type="int" />
-        </EntityType>
         <EntityType Name="Pharmacy">
           <Key>
             <PropertyRef Name="Id" />
@@ -47,8 +26,12 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idPhar" Type="int" Nullable="false" />
-          <Property Name="idMed" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Weight" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="idPhar" Type="int" />
         </EntityType>
         <Association Name="FK_Pharmacy_toCities">
           <End Role="Cities" Type="Self.Cities" Multiplicity="1" />
@@ -62,20 +45,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PharmacyMed_toMedications">
-          <End Role="Medications" Type="Self.Medications" Multiplicity="1" />
-          <End Role="PharmacyMed" Type="Self.PharmacyMed" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Medications">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PharmacyMed">
-              <PropertyRef Name="idMed" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PharmacyMed_toPhar">
-          <End Role="Pharmacy" Type="Self.Pharmacy" Multiplicity="1" />
+        <Association Name="FK_PharmacyMed_toPharmacy">
+          <End Role="Pharmacy" Type="Self.Pharmacy" Multiplicity="0..1" />
           <End Role="PharmacyMed" Type="Self.PharmacyMed" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pharmacy">
@@ -88,19 +59,13 @@
         </Association>
         <EntityContainer Name="Хранилище DatabasePharmacyModelContainer">
           <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Medications" EntityType="Self.Medications" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pharmacy" EntityType="Self.Pharmacy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PharmacyMed" EntityType="Self.PharmacyMed" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Pharmacy_toCities" Association="Self.FK_Pharmacy_toCities">
             <End Role="Cities" EntitySet="Cities" />
             <End Role="Pharmacy" EntitySet="Pharmacy" />
           </AssociationSet>
-          <AssociationSet Name="FK_PharmacyMed_toMedications" Association="Self.FK_PharmacyMed_toMedications">
-            <End Role="Medications" EntitySet="Medications" />
-            <End Role="PharmacyMed" EntitySet="PharmacyMed" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PharmacyMed_toPhar" Association="Self.FK_PharmacyMed_toPhar">
+          <AssociationSet Name="FK_PharmacyMed_toPharmacy" Association="Self.FK_PharmacyMed_toPharmacy">
             <End Role="Pharmacy" EntitySet="Pharmacy" />
             <End Role="PharmacyMed" EntitySet="PharmacyMed" />
           </AssociationSet>
@@ -109,43 +74,15 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DatabasePharmacyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Medication">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Weight" Type="Int32" />
-          <Property Name="Quantity" Type="Int32" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
-          <NavigationProperty Name="PharmacyMeds" Relationship="DatabasePharmacyModel.FK_PharmacyMed_toMedications" FromRole="Medication" ToRole="PharmacyMed" />
-        </EntityType>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NameUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="MedicationID" Type="Int32" />
-        </EntityType>
         <EntityContainer Name="DatabasePharmacyEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Medications" EntityType="Self.Medication" />
-          <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Cities" EntityType="DatabasePharmacyModel.City" />
-          <EntitySet Name="Pharmacies" EntityType="DatabasePharmacyModel.Pharmacy" />
           <EntitySet Name="PharmacyMeds" EntityType="DatabasePharmacyModel.PharmacyMed" />
+          <EntitySet Name="Pharmacies" EntityType="DatabasePharmacyModel.Pharmacy" />
           <AssociationSet Name="FK_Pharmacy_toCities" Association="DatabasePharmacyModel.FK_Pharmacy_toCities">
             <End Role="City" EntitySet="Cities" />
             <End Role="Pharmacy" EntitySet="Pharmacies" />
           </AssociationSet>
-          <AssociationSet Name="FK_PharmacyMed_toMedications" Association="DatabasePharmacyModel.FK_PharmacyMed_toMedications">
-            <End Role="Medication" EntitySet="Medications" />
-            <End Role="PharmacyMed" EntitySet="PharmacyMeds" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PharmacyMed_toPhar" Association="DatabasePharmacyModel.FK_PharmacyMed_toPhar">
+          <AssociationSet Name="FK_PharmacyMed_toPharmacy" Association="DatabasePharmacyModel.FK_PharmacyMed_toPharmacy">
             <End Role="Pharmacy" EntitySet="Pharmacies" />
             <End Role="PharmacyMed" EntitySet="PharmacyMeds" />
           </AssociationSet>
@@ -158,6 +95,19 @@
           <Property Name="City1" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Pharmacies" Relationship="DatabasePharmacyModel.FK_Pharmacy_toCities" FromRole="City" ToRole="Pharmacy" />
         </EntityType>
+        <EntityType Name="PharmacyMed">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Weight" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="idPhar" Type="Int32" />
+          <NavigationProperty Name="Pharmacy" Relationship="DatabasePharmacyModel.FK_PharmacyMed_toPharmacy" FromRole="PharmacyMed" ToRole="Pharmacy" />
+        </EntityType>
         <EntityType Name="Pharmacy">
           <Key>
             <PropertyRef Name="Id" />
@@ -167,17 +117,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="City" Relationship="DatabasePharmacyModel.FK_Pharmacy_toCities" FromRole="Pharmacy" ToRole="City" />
-          <NavigationProperty Name="PharmacyMeds" Relationship="DatabasePharmacyModel.FK_PharmacyMed_toPhar" FromRole="Pharmacy" ToRole="PharmacyMed" />
-        </EntityType>
-        <EntityType Name="PharmacyMed">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idPhar" Type="Int32" Nullable="false" />
-          <Property Name="idMed" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Medication" Relationship="DatabasePharmacyModel.FK_PharmacyMed_toMedications" FromRole="PharmacyMed" ToRole="Medication" />
-          <NavigationProperty Name="Pharmacy" Relationship="DatabasePharmacyModel.FK_PharmacyMed_toPhar" FromRole="PharmacyMed" ToRole="Pharmacy" />
+          <NavigationProperty Name="PharmacyMeds" Relationship="DatabasePharmacyModel.FK_PharmacyMed_toPharmacy" FromRole="Pharmacy" ToRole="PharmacyMed" />
         </EntityType>
         <Association Name="FK_Pharmacy_toCities">
           <End Type="DatabasePharmacyModel.City" Role="City" Multiplicity="1" />
@@ -191,20 +131,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PharmacyMed_toMedications">
-          <End Type="DatabasePharmacyModel.Medication" Role="Medication" Multiplicity="1" />
-          <End Type="DatabasePharmacyModel.PharmacyMed" Role="PharmacyMed" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Medication">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PharmacyMed">
-              <PropertyRef Name="idMed" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PharmacyMed_toPhar">
-          <End Type="DatabasePharmacyModel.Pharmacy" Role="Pharmacy" Multiplicity="1" />
+        <Association Name="FK_PharmacyMed_toPharmacy">
+          <End Type="DatabasePharmacyModel.Pharmacy" Role="Pharmacy" Multiplicity="0..1" />
           <End Type="DatabasePharmacyModel.PharmacyMed" Role="PharmacyMed" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pharmacy">
@@ -221,33 +149,23 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище DatabasePharmacyModelContainer" CdmEntityContainer="DatabasePharmacyEntities">
-          <EntitySetMapping Name="Medications">
-            <EntityTypeMapping TypeName="DatabasePharmacyModel.Medication">
-              <MappingFragment StoreEntitySet="Medications">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Weight" ColumnName="Weight" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="DatabasePharmacyModel.Order">
-              <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="NameUser" ColumnName="NameUser" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="MedicationID" ColumnName="MedicationID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Cities">
             <EntityTypeMapping TypeName="DatabasePharmacyModel.City">
               <MappingFragment StoreEntitySet="Cities">
                 <ScalarProperty Name="City1" ColumnName="City" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PharmacyMeds">
+            <EntityTypeMapping TypeName="DatabasePharmacyModel.PharmacyMed">
+              <MappingFragment StoreEntitySet="PharmacyMed">
+                <ScalarProperty Name="idPhar" ColumnName="idPhar" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -258,15 +176,6 @@
                 <ScalarProperty Name="Adress" ColumnName="Adress" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="idCities" ColumnName="idCities" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PharmacyMeds">
-            <EntityTypeMapping TypeName="DatabasePharmacyModel.PharmacyMed">
-              <MappingFragment StoreEntitySet="PharmacyMed">
-                <ScalarProperty Name="idMed" ColumnName="idMed" />
-                <ScalarProperty Name="idPhar" ColumnName="idPhar" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

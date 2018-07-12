@@ -157,12 +157,6 @@
     <Compile Include="Models\City.cs">
       <DependentUpon>PharmacyDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Medication.cs">
-      <DependentUpon>PharmacyDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Order.cs">
-      <DependentUpon>PharmacyDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\PharContext.cs" />
     <Compile Include="Models\Pharmacy.cs">
       <DependentUpon>PharmacyDB.tt</DependentUpon>
@@ -245,8 +239,10 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Pick.cshtml" />
     <Content Include="Views\Home\Medication.cshtml" />
+    <Content Include="Views\Home\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Admin\" />
     <Folder Include="Views\Phar\" />
   </ItemGroup>
   <ItemGroup>

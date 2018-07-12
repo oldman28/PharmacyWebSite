@@ -9,14 +9,12 @@ namespace Pharmacy.Controllers
 {
     public class HomeController : Controller
     {
+        Random rnd = new Random();
         PharContext db = new PharContext();
         public ActionResult Index()
         {
             IEnumerable<City> citys = db.Cities;
-            IEnumerable<Medication> meds = db.Medications;
-            ViewBag.Medications = meds;
             ViewBag.Citys = citys;
-
             return View();
         }
 
@@ -29,10 +27,57 @@ namespace Pharmacy.Controllers
         public ActionResult Medication(int id)
         {
             var med = db.PharmacyMeds.Where(p => p.idPhar == id).ToList();
-            
-            //  var her = db.Medications.Where(p => p.Id == ).ToList();
             return View(med);
         }
+         [HttpGet]
+         public ActionResult Create(int id)
+         {
+            ViewBag.PharId = id;
+             return View();
+         }
+         [HttpPost]
+         public string Create(string Name, int Weight,int Quantity, string Description, int Price, int idPhar)
+         { 
 
+            PharmacyMed PH = new PharmacyMed
+                {
+
+                    //Id = rnd.Next(0, 10500),
+                    idPhar = idPhar,
+                    Name = Name,
+                    Weight = Weight,
+                    Quantity = Quantity,
+                    Description = Description,
+                    Price = Price
+                };
+                db.PharmacyMeds.Add(PH);
+                db.SaveChanges();
+             return "Добавлено!";
+         }
+       /* @using(Html.BeginForm())
+        {
+            < p > Name: @Html.TextBoxFor(x => x.idPhar) </ p >
+   
+               < p > Name: @Html.TextBoxFor(x => x.Name) </ p >
+      
+                  < p > Name: @Html.TextBoxFor(x => x.Weight) </ p >
+         
+                     < p > Name: @Html.TextBoxFor(x => x.Quantity) </ p >
+            
+                        < p > Name: @Html.TextBoxFor(x => x.Description) </ p >
+               
+                           < p > Name: @Html.TextBoxFor(x => x.Price) </ p >
+                  
+                              < input type = "submit" value = "add" />
+        }*/
+
+        /*  public ViewResult Edit(int productId)
+          {
+              return View();
+          }
+          public ViewResult Create()
+          {
+              return View("Edit", new PharmacyMed());
+          }*/
     }
 }

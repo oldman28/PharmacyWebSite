@@ -4,15 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="826f675fc5f24d63b7e0db3f208258be" Name="Diagram1">
-        <EntityTypeShape EntityType="DatabasePharmacyModel.Medication" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabasePharmacyModel.Order" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabasePharmacyModel.City" Width="1.5" PointX="2.75" PointY="3.375" />
-        <EntityTypeShape EntityType="DatabasePharmacyModel.Pharmacy" Width="1.5" PointX="5.25" PointY="3.375" />
-        <EntityTypeShape EntityType="DatabasePharmacyModel.PharmacyMed" Width="1.5" PointX="7.875" PointY="2.5" />
+      <Diagram DiagramId="826f675fc5f24d63b7e0db3f208258be" Name="Diagram1" ZoomLevel="82">
+        <EntityTypeShape EntityType="DatabasePharmacyModel.City" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DatabasePharmacyModel.PharmacyMed" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DatabasePharmacyModel.Pharmacy" Width="1.5" PointX="3" PointY="4.5" />
         <AssociationConnector Association="DatabasePharmacyModel.FK_Pharmacy_toCities" />
-        <AssociationConnector Association="DatabasePharmacyModel.FK_PharmacyMed_toMedications" />
-        <AssociationConnector Association="DatabasePharmacyModel.FK_PharmacyMed_toPhar" />
+        <AssociationConnector Association="DatabasePharmacyModel.FK_PharmacyMed_toPharmacy" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

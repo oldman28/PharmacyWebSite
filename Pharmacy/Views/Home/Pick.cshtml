@@ -22,12 +22,14 @@
             @foreach (var b in Model)
             {
                 <tr>
-                    <td><p>@b.Name</p></td>
+                    <td><a href="/Home/Medication/@b.Id"><p>@b.Name</p></a></td>
                     <td><p>@b.Adress</p></td>
-                    <td><a href="/Home/Medication/@b.Id"><p>Выбрать</p></a></td>
+                    <td><p>@Html.ActionLink("Add a new product", "Create", new { id = @b.Id })</p> </td>
                 </tr>
+                
             }
         </table>
+       
     </div>
 </body>
 </html>

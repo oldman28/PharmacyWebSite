@@ -151,6 +151,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PharController.cs" />
+    <Compile Include="Controllers\PharmacyMedsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -245,6 +246,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Home\PharmacyMeds\" />
     <Folder Include="Views\Phar\" />
   </ItemGroup>
   <ItemGroup>

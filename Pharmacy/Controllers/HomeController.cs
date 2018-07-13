@@ -29,55 +29,52 @@ namespace Pharmacy.Controllers
             var med = db.PharmacyMeds.Where(p => p.idPhar == id).ToList();
             return View(med);
         }
-         [HttpGet]
-         public ActionResult Create(int id)
-         {
-            ViewBag.PharId = id;
-             return View();
-         }
-         [HttpPost]
-         public string Create(string Name, int Weight,int Quantity, string Description, int Price, int idPhar)
-         { 
-
-            PharmacyMed PH = new PharmacyMed
-                {
-
-                    //Id = rnd.Next(0, 10500),
-                    idPhar = idPhar,
-                    Name = Name,
-                    Weight = Weight,
-                    Quantity = Quantity,
-                    Description = Description,
-                    Price = Price
-                };
-                db.PharmacyMeds.Add(PH);
-                db.SaveChanges();
-             return "Добавлено!";
-         }
-       /* @using(Html.BeginForm())
+        public ActionResult Create()
         {
-            < p > Name: @Html.TextBoxFor(x => x.idPhar) </ p >
-   
-               < p > Name: @Html.TextBoxFor(x => x.Name) </ p >
-      
-                  < p > Name: @Html.TextBoxFor(x => x.Weight) </ p >
-         
-                     < p > Name: @Html.TextBoxFor(x => x.Quantity) </ p >
-            
-                        < p > Name: @Html.TextBoxFor(x => x.Description) </ p >
-               
-                           < p > Name: @Html.TextBoxFor(x => x.Price) </ p >
-                  
-                              < input type = "submit" value = "add" />
-        }*/
+            ViewBag.idPhar = new SelectList(db.Pharmacies, "Id", "Name");
+            return View();
+        }
 
-        /*  public ViewResult Edit(int productId)
+      
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Name,Weight,Quantity,Description,Price,idPhar")] PharmacyMed pharmacyMed)
+        {
+            if (ModelState.IsValid)
+            {
+                db.PharmacyMeds.Add(pharmacyMed);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.idPhar = new SelectList(db.Pharmacies, "Id", "Name", pharmacyMed.idPhar);
+            return View(pharmacyMed);
+        }
+        /*  [HttpGet]
+          public ActionResult Create(int id)
           {
+             ViewBag.PharId = id;
               return View();
           }
-          public ViewResult Create()
-          {
-              return View("Edit", new PharmacyMed());
-          }*/
+          [HttpPost]
+          public string Create(string Name, int Weight,int Quantity, string Description, int Price, int idPhar)
+          { 
+
+             PharmacyMed PH = new PharmacyMed
+                 {
+
+                     //Id = rnd.Next(0, 10500),
+                     idPhar = idPhar,
+                     Name = Name,
+                     Weight = Weight,
+                     Quantity = Quantity,
+                     Description = Description,
+                     Price = Price
+                 };
+                 db.PharmacyMeds.Add(PH);
+                 db.SaveChanges();
+              return "Добавлено!";
+          }
+    */
     }
 }

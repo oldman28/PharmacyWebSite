@@ -10,10 +10,10 @@ namespace Pharmacy.Controllers
     {
         // GET: Phar
         // private Models.DatabasePharmacyEntities db = new Models.DatabasePharmacyEntities();
-        Models.DatabasePharmacyEntities db = new Models.DatabasePharmacyEntities();
+       /* Models.DatabasePharmacyEntities db = new Models.DatabasePharmacyEntities();
         public ActionResult Index()
         {
             return View();
-        }
+        }*/
     }
 }
